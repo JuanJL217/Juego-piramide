@@ -2,38 +2,52 @@ from colored import Fore, Style
 import random
 import os
 
-PALITO_COMÚN:str='|'
-PALITO_COLOR_ROJO:str='\x1b[38;5;1m|\x1b[0m'
-PALITO_COLOR_VERDE:str='\x1b[38;5;2m|\x1b[0m'
-ESPACIO_VACÍO=' '
-MÁX_PALITOS:int=3
-MÍN_PALITOS:int=1
-UN_PALITO:int=1
-MÍN_VALOR_DEL_DADO:int=1
-MÁX_VALOR_DEL_DADO:int=6
-PRIMERA_FILA:int=1
-FUERA_DE_LA_PIRAMIDE:str='\x1b[38;5;0m*\x1b[0m'
-ARREGLAR_POSICIÓN_POR_INDICE_DEL_TABLERO:int=1
-UNA_FILA_ANTES_DE_LA_MÁXIMA:int=11
-PORCENTAJE_MÍNIMO:float=0.2
-PORCENTAJE_MÁXIMO:float=0.3
-INDICE_CON_2_DIGITOS:int=10
-DE_DOS_EN_DOS:int=2
-COLUMNAS:int=0
-PORCENTAJE_PARA_BLOQUEAR_PALITOS:float=0.2
-PRIMER_NOMBRE:int=0
-AUMENTA_EN_UNO:int=1
-DISMINUYE_EN_UNO:int=1
-INICIAR_CONTADOR:int=0
-PRIMERA_COORDENADA:int=0
-SEGUNDA_COORDENADA:int=1
-SE_ACABÓ_EL_TIEMPO:int=0
+PALITO_COMÚN:str = '|'
+PALITO_COLOR_ROJO:str = '\x1b[38;5;1m|\x1b[0m'
+PALITO_COLOR_VERDE:str = '\x1b[38;5;2m|\x1b[0m'
+ESPACIO_VACÍO = ' '
+MÁX_PALITOS:int = 3
+MÍN_PALITOS:int = 1
+UN_PALITO:int = 1
+MÍN_VALOR_DEL_DADO:int = 1
+MÁX_VALOR_DEL_DADO:int = 6
+PRIMERA_FILA:int = 1
+FUERA_DE_LA_PIRAMIDE:str = '\x1b[38;5;0m*\x1b[0m'
+ARREGLAR_POSICIÓN_POR_INDICE_DEL_TABLERO:int = 1
+UNA_FILA_ANTES_DE_LA_MÁXIMA:int = 11
+PORCENTAJE_MÍNIMO:float = 0.2
+PORCENTAJE_MÁXIMO:float = 0.3
+INDICE_CON_2_DIGITOS:int = 10
+DE_DOS_EN_DOS:int = 2
+COLUMNAS:int = 0
+PORCENTAJE_PARA_BLOQUEAR_PALITOS:float = 0.2
+PRIMER_NOMBRE:int = 0
+AUMENTA_EN_UNO:int = 1
+DISMINUYE_EN_UNO:int = 1
+INICIAR_CONTADOR:int = 0
+PRIMERA_COORDENADA:int = 0
+SEGUNDA_COORDENADA:int = 1
+SE_ACABÓ_EL_TIEMPO:int = 0
+CANTIDAD_DE_JUGADORES:tuple=(
+    '2 jugadores',
+    '3 jugadores',
+    '4 jugadores',
+    '5 jugadores'
+    )
+NOMBRES_DE_JUGADORES:tuple=(
+    'ALEJANDRO',
+    'FIORELA',
+    'MARTIN',
+    'ALEXANDRA',
+    'LEONARDO',
+    'VANESSA'
+    )
 
 
 def limpiar_pantalla()->None:
     return os.system('cls')
 
-def menú_cantidad_jugadores(jugadores:tuple[str])->int:
+def menú_cantidad_jugadores()->int:
     '''
     PRE CONDICIÓN: INGRESAR ÚNICAMENTE UN VALOR NUMERICO QUE SE MUESTRE COMO OPCIONES.
 
@@ -47,13 +61,13 @@ def menú_cantidad_jugadores(jugadores:tuple[str])->int:
     limpiar_pantalla()
     print('CANTIDAD DE JUGADORES')
 
-    for cantidad in range(len(jugadores)):
-        print(jugadores[cantidad])
+    for cantidad in range(len(CANTIDAD_DE_JUGADORES)):
+        print(CANTIDAD_DE_JUGADORES[cantidad])
 
     return int(input('¿Cuántos jugadores seremos?: '))
 
 
-def fijar_jugadores(nombre_de_la_tupla_de_jugadores:tuple[str],cantidad_de_jugadores:int)->tuple[str]:
+def fijar_jugadores(cantidad_de_jugadores:int)->tuple[str]:
     '''
     PRE CONDICIÓN: 
     1) PONDREMOS UN NOMBRE DE USUARIO, UNA CADENA Y SE CONVERTIRÁ EN MAYÚSCULA
@@ -72,7 +86,7 @@ def fijar_jugadores(nombre_de_la_tupla_de_jugadores:tuple[str],cantidad_de_jugad
 
     print('LOS JUGADORES SON:')
     jugadores_totales.append(nombre_yo)
-    nombres_elegidos:list=(random.sample(nombre_de_la_tupla_de_jugadores,cantidad_de_jugadores-DISMINUYE_EN_UNO))
+    nombres_elegidos:list=(random.sample(NOMBRES_DE_JUGADORES,cantidad_de_jugadores-DISMINUYE_EN_UNO))
 
     for elementos in range(len(nombres_elegidos)):
         jugadores_totales.append(nombres_elegidos[elementos])
@@ -841,43 +855,29 @@ def fin_de_la_partida(tablero:list[str],diccionario_jugadas_palitos:dict,perdedo
     for jugadores in diccionario_jugadas_palitos:
         palitos=diccionario_jugadas_palitos[jugadores]['contador palitos retirados']
         print(f'{jugadores} sacó {palitos} palitos')
-
+        
 
 def main():
-    palitos_retirados_de_cada_jugador:dict={}
-    turnos_no_se_ha_bloqueado:dict={}
-    coordenadas_guardadas:list=[]
-    tiempo_palitos_bloqueados:dict={}
-    CANTIDAD_DE_JUGADORES:tuple=(
-        '2 jugadores',
-        '3 jugadores',
-        '4 jugadores',
-        '5 jugadores'
-        )
-    NOMBRES_DE_JUGADORES:tuple=(
-        'ALEJANDRO',
-        'FIORELA',
-        'MARTIN',
-        'ALEXANDRA',
-        'LEONARDO',
-        'VANESSA'
-        )
-    NÚMERO_JUGADORES=menú_cantidad_jugadores(CANTIDAD_DE_JUGADORES)
-    NOMBRES_SELECCIONADOS=fijar_jugadores(NOMBRES_DE_JUGADORES,NÚMERO_JUGADORES)
-    seguimiento_turnos(NOMBRES_SELECCIONADOS,turnos_no_se_ha_bloqueado)
-    CANTIDAD_FILAS_DE_PALITOS=menú_cantidad_filas(NÚMERO_JUGADORES)
-    marcador_jugadores(NOMBRES_SELECCIONADOS,palitos_retirados_de_cada_jugador)
-    tablero=armar_piramide(CANTIDAD_FILAS_DE_PALITOS,creación_de_palitos(CANTIDAD_FILAS_DE_PALITOS))
+    palitos_retirados_de_cada_jugador:dict = {}
+    turnos_no_se_ha_bloqueado:dict = {}
+    coordenadas_guardadas:list = []
+    tiempo_palitos_bloqueados:dict = {}
+    número_jugadores = menú_cantidad_jugadores() #
+    nombres_seleccionados = fijar_jugadores(número_jugadores)
+    seguimiento_turnos(nombres_seleccionados, turnos_no_se_ha_bloqueado)
+    cantidad_filas_de_palitos = menú_cantidad_filas(número_jugadores)
+    marcador_jugadores(nombres_seleccionados, palitos_retirados_de_cada_jugador)#
+    tablero=armar_piramide(cantidad_filas_de_palitos, creación_de_palitos(cantidad_filas_de_palitos))
     reglas(tablero)
-    YO=NOMBRES_SELECCIONADOS[PRIMER_NOMBRE]
-    CANTIDAD_DE_FILAS:int=len(tablero)
-    CANTIDAD_DE_COLUMNAS:int=len(tablero[0])
-    sigamos_con_el_juego:bool=True
-    seguir_actualizando_tablero:bool=True
-    actualizar_jugada:bool=True
+    YO=nombres_seleccionados[PRIMER_NOMBRE]
+    CANTIDAD_DE_FILAS:int = len(tablero)
+    CANTIDAD_DE_COLUMNAS:int = len(tablero[0])
+    sigamos_con_el_juego:bool = True
+    seguir_actualizando_tablero:bool = True
+    actualizar_jugada:bool = True
 
     while sigamos_con_el_juego:
-        for nombres in NOMBRES_SELECCIONADOS:
+        for nombres in nombres_seleccionados:
             if actualizar_jugada:
                 aún_no_se_seleccionó_palito_rojo:bool=True
                 sacar_cantidad_palitos:int=MÍN_PALITOS
@@ -899,9 +899,9 @@ def main():
                             elif posición_hay_palito_rojo(tablero,coordenadas):
                                 sacar_palito(tablero,coordenadas)
                                 if aún_no_se_seleccionó_palito_rojo:
-                                    tablero=ejecución_de_eventos(tablero, NOMBRES_SELECCIONADOS, nombres, 
+                                    tablero=ejecución_de_eventos(tablero, nombres_seleccionados, nombres, 
                                                                  turnos_no_se_ha_bloqueado, tiempo_palitos_bloqueados, 
-                                                                 coordenadas_guardadas, CANTIDAD_FILAS_DE_PALITOS)
+                                                                 coordenadas_guardadas, cantidad_filas_de_palitos)
                                     aún_no_se_seleccionó_palito_rojo:bool=False
                                     if se_acabaron_los_palitos(tablero):
                                         sacar_cantidad_palitos=cantidad_elejida_de_palitos+AUMENTA_EN_UNO
@@ -959,9 +959,9 @@ def main():
                                 mostrar_cantidades_de_palitos_a_sacar_y_coordenadas(tablero,sacar_cantidad_palitos,cantidad_elejida_de_palitos,coordenadas)
                                 sacar_palito(tablero,coordenadas)
                                 if aún_no_se_seleccionó_palito_rojo:
-                                    tablero=ejecución_de_eventos(tablero, NOMBRES_SELECCIONADOS, nombres, 
+                                    tablero=ejecución_de_eventos(tablero, nombres_seleccionados, nombres, 
                                                                  turnos_no_se_ha_bloqueado, tiempo_palitos_bloqueados, 
-                                                                 coordenadas_guardadas, CANTIDAD_FILAS_DE_PALITOS)
+                                                                 coordenadas_guardadas, cantidad_filas_de_palitos)
                                     aún_no_se_seleccionó_palito_rojo=False
                                     if se_acabaron_los_palitos(tablero):
                                         sacar_cantidad_palitos=cantidad_elejida_de_palitos+AUMENTA_EN_UNO
