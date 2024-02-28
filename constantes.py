@@ -50,14 +50,14 @@ SEGUNDA_COORDENADA:int = 1
 
 SE_ACABÓ_EL_TIEMPO:int = 0
 
-CANTIDAD_DE_JUGADORES:tuple=(
+CANTIDAD_DE_JUGADORES:tuple = (
     '2 jugadores',
     '3 jugadores',
     '4 jugadores',
     '5 jugadores'
     )
 
-NOMBRES_DE_JUGADORES:tuple=(
+NOMBRES_DE_JUGADORES:tuple = (
     'ALEJANDRO',
     'FIORELA',
     'MARTIN',
