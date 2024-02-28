@@ -1,0 +1,67 @@
+PALITO_COMÚN:str = '|'
+
+PALITO_COLOR_ROJO:str = '\x1b[38;5;1m|\x1b[0m'
+
+PALITO_COLOR_VERDE:str = '\x1b[38;5;2m|\x1b[0m'
+
+ESPACIO_VACÍO = ' '
+
+MÁX_PALITOS:int = 3
+
+MÍN_PALITOS:int = 1
+
+UN_PALITO:int = 1
+
+MÍN_VALOR_DEL_DADO:int = 1
+
+MÁX_VALOR_DEL_DADO:int = 6
+
+PRIMERA_FILA:int = 1
+
+FUERA_DE_LA_PIRAMIDE:str = '\x1b[38;5;0m*\x1b[0m'
+
+ARREGLAR_POSICIÓN_POR_INDICE_DEL_TABLERO:int = 1
+
+UNA_FILA_ANTES_DE_LA_MÁXIMA:int = 11
+
+PORCENTAJE_MÍNIMO:float = 0.2
+
+PORCENTAJE_MÁXIMO:float = 0.3
+
+INDICE_CON_2_DIGITOS:int = 10
+
+DE_DOS_EN_DOS:int = 2
+
+COLUMNAS:int = 0
+
+PORCENTAJE_PARA_BLOQUEAR_PALITOS:float = 0.2
+
+PRIMER_NOMBRE:int = 0
+
+AUMENTA_EN_UNO:int = 1
+
+DISMINUYE_EN_UNO:int = 1
+
+INICIAR_CONTADOR:int = 0
+
+PRIMERA_COORDENADA:int = 0
+
+SEGUNDA_COORDENADA:int = 1
+
+SE_ACABÓ_EL_TIEMPO:int = 0
+
+CANTIDAD_DE_JUGADORES:tuple=(
+    '2 jugadores',
+    '3 jugadores',
+    '4 jugadores',
+    '5 jugadores'
+    )
+
+NOMBRES_DE_JUGADORES:tuple=(
+    'ALEJANDRO',
+    'FIORELA',
+    'MARTIN',
+    'ALEXANDRA',
+    'LEONARDO',
+    'VANESSA'
+    )
