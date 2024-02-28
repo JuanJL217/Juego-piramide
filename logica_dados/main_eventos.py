@@ -1,3 +1,4 @@
+from tirar_dado import tirar_dado
 from evento1 import evento1
 from evento2 import evento2
 from evento3 import evento3
@@ -40,4 +41,22 @@ def eventos_totales(
     elif numero_dado == 6:
         evento6(tablero)
 
+    return tablero
+
+def ejecución_de_eventos(tablero:list[str], NOMBRES_SELECCIONADOS:tuple[str], 
+                         nombres:str,turnos_jugadores:dict, 
+                         tiempo_palitos_bloqueados:dict, 
+                         coordenadas_guardadas:list[tuple[int]], 
+                         CANTIDAD_FILAS_DE_PALITOS:int)->list[str]:
+    '''
+    FUNCIÓN QUE EJECUTA EL VALOR DE LA FUNCIÓN DEL DADO ALEATORIO Y EL NUEVO VALOR DEL TABLERO
+    '''
+    
+    imprimir_tablero_con_indices(tablero)
+    numero_dado=tirar_dado(NOMBRES_SELECCIONADOS,nombres)
+    tablero=eventos_totales(numero_dado, tablero, 
+                            NOMBRES_SELECCIONADOS, nombres, 
+                            turnos_jugadores, tiempo_palitos_bloqueados, 
+                            coordenadas_guardadas, CANTIDAD_FILAS_DE_PALITOS)
+    
     return tablero

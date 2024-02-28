@@ -27,3 +27,4 @@ def tirar_dado(nombres_jugadores:tuple[str], nombres:str)->None:
         input(f'Le salió el número {número_de_dado}')
 
         return número_de_dado
+    

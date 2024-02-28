@@ -2,6 +2,7 @@ from colored import Fore, Style
 import random
 import os
 from constantes import *
+from logica_dados.main_eventos import eventos_totales, ejecución_de_eventos
 
 def limpiar_pantalla()->None:
     return os.system('cls')
@@ -517,55 +518,6 @@ def hay_palitos_en_la_fila(tablero:list[str],fila:int)->bool:
     else:
         return False
 
-
-def eventos_totales(
-        numero_dado, 
-        tablero, 
-        nombres_seleccionados, 
-        nombres, turnos_jugadores,
-        tiempo_palitos_bloqueados,
-        coordenadas_guardadas,
-        cantidad_filas_de_palitos)->list[str]:
-    '''
-    SECCIÓN DONDE TENGO LOS EVENTOS Y COSAS EXTRAS, PARA QUE EL PROGRAMA VAYA BIEN.
-    '''
-    
-    if numero_dado == 1:
-        evento1(nombres_seleccionados, turnos_jugadores, nombres)
-    elif numero_dado == 2:
-        tablero=evento2(tablero,nombres_seleccionados,nombres)
-    elif numero_dado == 3:
-        tablero = evento3(tablero)
-        imprimir_tablero_con_indices(tablero)
-        input('Los palitos verdes se quedan bloqueados por 3 rondas')
-        guardar_coordenadas_y_turnos_de_palitos_bloqueados(tablero, tiempo_palitos_bloqueados, coordenadas_guardadas)
-    elif numero_dado == 4:
-        tablero=evento4(tablero, nombres_seleccionados, nombres)
-    elif numero_dado == 5:
-        tablero = evento5(cantidad_filas_de_palitos, tablero)
-    elif numero_dado == 6:
-        evento6(tablero)
-
-    return tablero
-
-
-def ejecución_de_eventos(tablero:list[str], NOMBRES_SELECCIONADOS:tuple[str], 
-                         nombres:str,turnos_jugadores:dict, 
-                         tiempo_palitos_bloqueados:dict, 
-                         coordenadas_guardadas:list[tuple[int]], 
-                         CANTIDAD_FILAS_DE_PALITOS:int)->list[str]:
-    '''
-    FUNCIÓN QUE EJECUTA EL VALOR DE LA FUNCIÓN DEL DADO ALEATORIO Y EL NUEVO VALOR DEL TABLERO
-    '''
-    
-    imprimir_tablero_con_indices(tablero)
-    numero_dado=tirar_dado(NOMBRES_SELECCIONADOS,nombres)
-    tablero=eventos_totales(numero_dado, tablero, 
-                            NOMBRES_SELECCIONADOS, nombres, 
-                            turnos_jugadores, tiempo_palitos_bloqueados, 
-                            coordenadas_guardadas, CANTIDAD_FILAS_DE_PALITOS)
-    
-    return tablero
 
 
 def guardar_coordenadas_y_turnos_de_palitos_bloqueados(tablero:list[str],tiempo_palitos_bloqueados:dict, 
